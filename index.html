@@ -8,7 +8,7 @@
 <style>
 :root{--brand:#fff;--bg:#0a0a0b;--card:#131315;--ink:#ececec;--on:#111;--radius:4px;--font:'Inter',sans-serif}
 *{box-sizing:border-box}
-body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;min-height:100vh;
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;
  --muted:color-mix(in srgb,var(--ink) 55%,var(--bg));--line:color-mix(in srgb,var(--ink) 16%,var(--card));--soft:color-mix(in srgb,var(--brand) 9%,var(--card))}
 h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.2}
 button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}
@@ -164,6 +164,9 @@ html.mo,html.mo body{background:var(--card)}
 .wordcard{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:var(--radius);padding:14px 18px;margin-top:10px}
 .wordt{font-size:1.7rem;letter-spacing:-.02em;margin:4px 0}.wex{color:var(--muted);font-style:italic;margin:6px 0 0}
 button.cd{cursor:pointer;background:none;font-family:inherit}.cd.sel{outline:2px solid var(--ink);outline-offset:1px}
+html{background:var(--bg)}
+.wrap{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}.wrap>*:last-child{margin-bottom:0}.box>p:last-child{margin-bottom:0}
+.wrap.chatview{padding-bottom:0}.chat{height:calc(100vh - 180px);height:calc(100dvh - 180px)}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:var(--radius);font-size:.88rem;z-index:9}
 </style>
 </head>
@@ -620,7 +623,7 @@ const siteModal=()=>`<div class="modal"><div class="sheet"><div class="row"><h2>
  <div class="f"><label for="sw2">Extra blocked words (separate with commas)</label><textarea id="sw2">${esc(site.badwords||"")}</textarea></div><div class="f"><label for="sf">Google Form link</label><input id="sf" value="${esc(site.formUrl||"")}"></div><div class="f"><label for="sa">About page text</label><textarea id="sa">${esc(site.about||"")}</textarea></div><div class="row"><button class="btn p">Save</button><button type="button" class="btn sp" data-a="seed">Add / refresh all starter courses</button></div></form></div></div>`;
 
 function render(){if(view=="course"&&Date.now()-lastAct>1500&&document.querySelector("iframe.custom"))return;
- document.documentElement.classList.toggle("mo",!!(menu&&user));$("#app").classList.toggle("menuopen",!!(menu&&user));
+ document.documentElement.classList.toggle("mo",!!(menu&&user));$("#app").classList.toggle("chatview",view=="chat");$("#app").classList.toggle("menuopen",!!(menu&&user));
  if(user&&me().banned){$("#app").innerHTML=bannedView();return}
  const keep={};$$("#app [id]").forEach(el=>keep[el.id]=el.type=="checkbox"?el.checked:el.value);
  const fid=document.activeElement?.id,pos=document.activeElement?.selectionStart;
